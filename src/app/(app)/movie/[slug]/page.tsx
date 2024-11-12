@@ -5,27 +5,26 @@ import type { Media } from 'payload-types'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import configPromise from '@payload-config'
 
-
 export default async function MovieDetails({ params }: { params: { slug: string } }) {
   const { slug } = params
-  const payload = await getPayloadHMR({ config: configPromise })
+  // const payload = await getPayloadHMR({ config: configPromise })
 
-  const movies = await payload.find({
-    collection: 'movies',
-    where: {
-      slug: { equals: slug },
-    },
-  })
+  // const movies = await payload.find({
+  //   collection: 'movies',
+  //   where: {
+  //     slug: { equals: slug },
+  //   },
+  // })
 
-  if (movies.docs.length === 0) {
-    return notFound()
-  }
+  // if (movies.docs.length === 0) {
+  //   return notFound()
+  // }
 
-  const movie = movies.docs[0]
+  // const movie = movies.docs[0]
 
   return (
     <div className="flex gap-2 mt-5">
-      <Image
+      {/* <Image
         src={(movie.poster as Media)?.url ?? ''}
         alt={(movie.poster as Media)?.text ?? ''}
         width={(movie.poster as Media)?.width ?? 100}
@@ -39,7 +38,7 @@ export default async function MovieDetails({ params }: { params: { slug: string 
           {movie.genres.map(({ name }) => name).join(', ')}
         </p>
         <p className="italic">{movie.overview}</p>
-      </div>
+      </div> */}
     </div>
   )
 }

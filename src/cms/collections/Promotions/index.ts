@@ -1,5 +1,6 @@
 import { CollectionConfig, FieldHook } from 'payload'
 
+// Utility function to format slugs
 const format = (val: string): string =>
   val
     .replace(/ /g, '-')
@@ -21,10 +22,10 @@ const formatSlug =
     return value
   }
 
-export const MoviesCollection: CollectionConfig = {
-  slug: 'movies',
+export const PromotionsCollection: CollectionConfig = {
+  slug: 'promotions',
   admin: {
-    useAsTitle: 'name',
+    useAsTitle: 'title',
   },
   access: {
     create: () => true,
@@ -32,18 +33,13 @@ export const MoviesCollection: CollectionConfig = {
   },
   fields: [
     {
-      name: 'name',
+      name: 'title',
       type: 'text',
       required: true,
     },
     {
-      name: 'url',
-      type: 'text',
-      required: true,
-    },
-    {
-      name: 'votes',
-      type: 'number',
+      name: 'content',
+      type: 'textarea',
       required: true,
     },
     {
@@ -53,26 +49,27 @@ export const MoviesCollection: CollectionConfig = {
       required: true,
     },
     {
-      name: 'overview',
+      name: 'promotion_link',
       type: 'text',
+      required: false,
+    },
+    {
+      name: 'start_date',
+      type: 'date',
       required: true,
     },
     {
-      name: 'tagline',
-      type: 'text',
-      required: false, // Some movies in tmd have no tagline
-    },
-    {
-      name: 'genres',
-      type: 'array',
-      fields: [
-        {
-          name: 'name',
-          type: 'text',
-        },
-      ],
+      name: 'end_date',
+      type: 'date',
       required: true,
     },
+    // {
+    //   name: 'company',
+    //   type: 'relationship',
+    //   relationTo: 'companies', // Links to the companies collection
+    //   required: true,
+    // },
+
     {
       name: 'slug',
       label: 'Slug',
@@ -81,7 +78,7 @@ export const MoviesCollection: CollectionConfig = {
         position: 'sidebar',
       },
       hooks: {
-        beforeValidate: [formatSlug('name')],
+        beforeValidate: [formatSlug('title')],
       },
     },
   ],

@@ -1,9 +1,7 @@
 import path from 'path'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { en } from 'payload/i18n/en'
-import {
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 
 import { buildConfig } from 'payload'
@@ -14,12 +12,20 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 import { UsersCollection } from '@/cms/collections/Users'
-import { MoviesCollection } from '@/cms/collections/Movies'
 import { MediaCollection } from '@/cms/collections/Media'
+import { PromotionsCollection } from './src/cms/collections/Promotions'
+import { TagsCollection } from './src/cms/collections/Tag'
+import { CompaniesCollection } from './src/cms/collections/Companies'
 
 export default buildConfig({
   secret: process.env.PAYLOAD_SECRET || 'set-a-secret-in-your-env',
-  collections: [UsersCollection, MoviesCollection, MediaCollection],
+  collections: [
+    UsersCollection,
+    PromotionsCollection,
+    TagsCollection,
+    CompaniesCollection,
+    MediaCollection,
+  ],
   admin: {
     autoLogin: {
       email: 'dev@payloadcms.com',

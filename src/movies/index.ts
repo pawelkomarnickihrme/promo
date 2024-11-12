@@ -66,24 +66,21 @@ export async function addMovieAction(movieId: number) {
 }
 
 export async function addVote(movieId: number) {
-  const payload = await getPayloadHMR({ config: configPromise })
-
-  const movie = await payload.findByID({
-    collection: 'movies',
-    id: movieId,
-  })
-
-  await payload.update({
-    collection: 'movies',
-    id: movieId,
-    data: {
-      votes: movie.votes + 1,
-    },
-  })
-
-  const movies = await payload.find({
-    collection: 'movies',
-    sort: '-votes',
-  })
-  return movies.docs
+  // const payload = await getPayloadHMR({ config: configPromise })
+  // const movie = await payload.findByID({
+  //   collection: 'movies',
+  //   id: movieId,
+  // })
+  // await payload.update({
+  //   collection: 'movies',
+  //   id: movieId,
+  //   data: {
+  //     votes: movie.votes + 1,
+  //   },
+  // })
+  // const movies = await payload.find({
+  //   collection: 'movies',
+  //   sort: '-votes',
+  // })
+  // return movies.docs
 }
