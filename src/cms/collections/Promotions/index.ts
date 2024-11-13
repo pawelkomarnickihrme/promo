@@ -1,3 +1,4 @@
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { CollectionConfig, FieldHook } from 'payload'
 
 // Utility function to format slugs
@@ -39,11 +40,11 @@ export const PromotionsCollection: CollectionConfig = {
     },
     {
       name: 'content',
-      type: 'textarea',
-      required: true,
+      type: 'richText',
+      editor: lexicalEditor({}),
     },
     {
-      name: 'poster',
+      name: 'thumbnail',
       type: 'upload',
       relationTo: 'media', // required
       required: true,
@@ -57,18 +58,28 @@ export const PromotionsCollection: CollectionConfig = {
       name: 'start_date',
       type: 'date',
       required: true,
+      admin: {
+        date: {
+          pickerAppearance: 'dayAndTime',
+        },
+      },
     },
     {
       name: 'end_date',
       type: 'date',
       required: true,
+      admin: {
+        date: {
+          pickerAppearance: 'dayAndTime',
+        },
+      },
     },
-    // {
-    //   name: 'company',
-    //   type: 'relationship',
-    //   relationTo: 'companies', // Links to the companies collection
-    //   required: true,
-    // },
+    {
+      name: 'company',
+      type: 'relationship',
+      relationTo: 'companies', // Links to the companies collection
+      required: true,
+    },
 
     {
       name: 'slug',

@@ -16,9 +16,10 @@ export const CompaniesCollection: CollectionConfig = {
       required: true,
     },
     {
-      name: 'logo_url',
-      type: 'text', // Could be a media upload field too
-      required: false,
+      name: 'thumbnail',
+      type: 'upload',
+      relationTo: 'media', // required
+      required: true,
     },
     {
       name: 'website',

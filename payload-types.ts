@@ -12,7 +12,9 @@ export interface Config {
   };
   collections: {
     users: User;
-    movies: Movie;
+    promotions: Promotion;
+    tags: Tag;
+    companies: Company;
     media: Media;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -55,20 +57,31 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "movies".
+ * via the `definition` "promotions".
  */
-export interface Movie {
+export interface Promotion {
   id: number;
-  name: string;
-  url: string;
-  votes: number;
-  poster: number | Media;
-  overview: string;
-  tagline?: string | null;
-  genres: {
-    name?: string | null;
-    id?: string | null;
-  }[];
+  title: string;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  thumbnail: number | Media;
+  promotion_link?: string | null;
+  start_date: string;
+  end_date: string;
+  company: number | Company;
   slug?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -91,6 +104,29 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "companies".
+ */
+export interface Company {
+  id: number;
+  name: string;
+  thumbnail: number | Media;
+  website?: string | null;
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: number;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
