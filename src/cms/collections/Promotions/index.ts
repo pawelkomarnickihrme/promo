@@ -40,6 +40,11 @@ export const PromotionsCollection: CollectionConfig = {
     },
     {
       name: 'content',
+      type: 'textarea',
+      required: true,
+    },
+    {
+      name: 'contentRich',
       type: 'richText',
       editor: lexicalEditor({}),
     },

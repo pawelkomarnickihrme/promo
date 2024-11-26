@@ -6,21 +6,21 @@ import { getPayloadHMR } from '@payloadcms/next/utilities'
 import configPromise from '@payload-config'
 
 export default async function MovieDetails({ params }: { params: { slug: string } }) {
-  const { slug } = params
-  // const payload = await getPayloadHMR({ config: configPromise })
+  const { slug } = await params
+  const payload = await getPayloadHMR({ config: configPromise })
 
-  // const movies = await payload.find({
-  //   collection: 'movies',
-  //   where: {
-  //     slug: { equals: slug },
-  //   },
-  // })
+  const promotions = await payload.find({
+    collection: 'promotions',
+    where: {
+      slug: { equals: slug },
+    },
+  })
 
-  // if (movies.docs.length === 0) {
-  //   return notFound()
-  // }
-
-  // const movie = movies.docs[0]
+  if (promotions.docs.length === 0) {
+    return notFound()
+  }
+  console.log(promotions.docs[0])
+  const movie = promotions.docs[0]
 
   return (
     <div className="flex gap-2 mt-5">
