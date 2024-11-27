@@ -1,4 +1,5 @@
 /* THIS FILE WAS GENERATED AUTOMATICALLY BY PAYLOAD. */
+//@ts-nocheck
 import configPromise from '@payload-config'
 import '@payloadcms/next/css'
 import { RootLayout } from '@payloadcms/next/layouts'

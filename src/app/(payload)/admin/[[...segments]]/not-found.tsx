@@ -1,4 +1,5 @@
 /* THIS FILE WAS GENERATED AUTOMATICALLY BY PAYLOAD. */
+//@ts-nocheck
 import type { Metadata } from 'next'
 
 import config from '@payload-config'

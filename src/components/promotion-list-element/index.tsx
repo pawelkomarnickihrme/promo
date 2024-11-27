@@ -1,52 +1,94 @@
-import React from 'react'
+import { ArrowUpRight, ChevronDown, ChevronUp, MessageSquare, Bookmark } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
+import Image from 'next/image'
 import { Promotion } from '../../../payload-types'
 
-const PromotionCard: React.FC<{ promotion: Promotion }> = ({ promotion }) => {
+export default function PromotionCard({
+  title,
+  content,
+  thumbnail,
+  promotion_link,
+  start_date,
+  end_date,
+  company,
+}: Promotion) {
+  const temperature = 751 // Example temperature
+  const comments = 59 // Example comment count
+
   return (
-    <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-4">
-      <div className="md:flex">
-        <div className="md:flex-shrink-0">
-          <img
-            className="h-48 w-full object-cover md:w-48"
-            src={promotion.thumbnail.url}
-            alt={promotion.thumbnail.text}
+    <Card className="max-w-4xl mx-auto bg-background">
+      <div className="flex gap-4 p-4">
+        {/* Left side - Image */}
+        <div className="relative w-48 h-48 flex-shrink-0">
+          <Image
+            src={thumbnail.url!}
+            alt={title}
+            width={thumbnail.width!}
+            height={thumbnail.height!}
+            className="object-cover rounded-lg"
           />
         </div>
-        <div className="p-8">
-          <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
-            {promotion.company.name}
+
+        {/* Right side - Content */}
+        <div className="flex-1 space-y-4">
+          {/* Header with temperature */}
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 bg-muted rounded-full px-3 py-1">
+              <ChevronDown className="h-4 w-4" />
+              <span className="font-bold text-red-500">{temperature}°</span>
+              <ChevronUp className="h-4 w-4" />
+            </div>
+
+            {/* Date info */}
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <span>{new Date(end_date).toLocaleDateString('pl-PL')}</span>
+            </div>
           </div>
-          <a
-            href={promotion.promotion_link}
-            className="block mt-1 text-lg leading-tight font-medium text-black hover:underline"
-          >
-            {promotion.title}
-          </a>
-          <p className="mt-2 text-gray-500">{promotion.content}</p>
-          <div className="mt-4">
-            <span className="text-sm font-semibold text-gray-700">Od: </span>
-            <span className="text-sm text-gray-600">
-              {new Date(promotion.start_date).toLocaleDateString()}
-            </span>
+
+          {/* Title */}
+          <h2 className="text-xl font-bold">{title}</h2>
+
+          {/* Content */}
+          <p className="text-muted-foreground">{content}</p>
+
+          {/* Company info */}
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-full overflow-hidden">
+                <Image
+                  src={company.thumbnail.url!}
+                  alt={company.name}
+                  width={24}
+                  height={24}
+                  className="object-cover"
+                />
+              </div>
+              <span className="text-sm font-medium">{company.name}</span>
+            </div>
           </div>
-          <div className="mt-1">
-            <span className="text-sm font-semibold text-gray-700">Do: </span>
-            <span className="text-sm text-gray-600">
-              {new Date(promotion.end_date).toLocaleDateString()}
-            </span>
-          </div>
-          <div className="mt-4">
-            <a
-              href={promotion.company.website}
-              className="text-indigo-500 hover:text-indigo-600 text-sm font-semibold"
-            >
-              Odwiedź stronę {promotion.company.name}
-            </a>
+
+          {/* Action buttons */}
+          <div className="flex items-center gap-4">
+            <Button className="bg-[#F73D28] hover:bg-[#E03523] text-white" asChild>
+              <a href={promotion_link!} target="_blank" rel="noopener noreferrer">
+                Idź do okazji
+                <ArrowUpRight className="ml-2 h-4 w-4" />
+              </a>
+            </Button>
+
+            <div className="flex items-center gap-2">
+              <Button variant="ghost" size="icon">
+                <Bookmark className="h-4 w-4" />
+              </Button>
+              <Button variant="ghost" size="icon">
+                <MessageSquare className="h-4 w-4" />
+                <span className="ml-2 text-sm">{comments}</span>
+              </Button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Card>
   )
 }
-
-export default PromotionCard
